@@ -4,6 +4,8 @@ import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
 import BreezeDropdown from '@/Components/Dropdown.vue';
 import BreezeDropdownLink from '@/Components/DropdownLink.vue';
 import BreezeNavLink from '@/Components/NavLink.vue';
+import Toast from '@/Components/Toast.vue';
+
 import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 
@@ -12,6 +14,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
+        <Toast :message=$page.props.flash.message :type=$page.props.flash.type></Toast>
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->

@@ -22,15 +22,9 @@
                             <BreezeLabel for="description" value="Description" />
                             <BreezeInput id="description" type="text" class="mt-1 block w-full" v-model="form.description"  autocomplete="description" />
                             <BreezeInputError class="mt-2" :message="errors.description" />
-                        </div>
+                        </div>                      
 
-                        <div class="mt-4">
-                            <BreezeLabel for="slug" value="Slug" />
-                            <BreezeInput id="slug" type="text" class="mt-1 block w-full" v-model="form.slug"  autocomplete="slug" />
-                            <BreezeInputError class="mt-2" :message="errors.slug" />
-                        </div>
-
-                       <div class="flex items-center justify-end mt-4">
+                        <div class="flex items-center justify-end mt-4">
                             <BreezeButton
                                 class="ml-4"
                                 :class="{ 'opacity-25': form.processing }"
