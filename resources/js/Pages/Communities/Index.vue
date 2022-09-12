@@ -13,7 +13,7 @@
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="flex justify-end">
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                 <Link
+              <Link
                 :href="route('communities.create')"
                 class="
                   inline-flex
@@ -112,8 +112,18 @@
                             text-gray-900
                             sm:pl-6
                           "
-                        >                         
-                          {{ community.name }}
+                        >
+                          <Link
+                            :href="
+                              route('frontend.communities.show', community.slug)
+                            "
+                            class="
+                              text-blue-500
+                              hover:text-blue-700
+                              font-semibold
+                            "
+                            >{{ community.name }}</Link
+                          >
                         </td>
                         <td
                           class="
@@ -138,12 +148,12 @@
                           "
                         >
                           <Link
-                            :href="route('communities.edit', community.id)"
+                            :href="route('communities.edit', community.slug)"
                             class="text-indigo-600 hover:text-indigo-900 mr-3"
                             >Edit</Link
                           >
                           <Link
-                            :href="route('communities.destroy', community.id)"
+                            :href="route('communities.destroy', community.slug)"
                             class="text-red-600 hover:text-red-900"
                             method="delete"
                             as="button"
@@ -157,7 +167,6 @@
                   <div class="m-2 p-2">
                     <Pagination :links="communities.links" />
                   </div>
-                
                 </div>
               </div>
             </div>
@@ -172,7 +181,6 @@
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Pagination from "../../Components/Pagination.vue";
-
 defineProps({
   communities: Object,
 });

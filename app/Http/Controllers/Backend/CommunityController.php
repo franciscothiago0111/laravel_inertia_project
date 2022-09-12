@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommunityStoreRequest;
+use App\Models\Comment;
+use App\Models\Community;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Community;
-use App\Http\Requests\CommunityStoreRequest;
-
 
 class CommunityController extends Controller
 {
@@ -23,9 +23,6 @@ class CommunityController extends Controller
             'name' => $community->name,
             'slug' => $community->slug,
         ]);
-
-        // echo "<pre>";
-        // print_r( $communities);exit;
         return Inertia::render('Communities/Index', compact('communities'));
     }
 
@@ -70,6 +67,7 @@ class CommunityController extends Controller
      */
     public function edit(Community $community)
     {
+        $this->authorize('update', $community);
         return Inertia::render('Communities/Edit', compact('community'));
     }
 
@@ -82,8 +80,10 @@ class CommunityController extends Controller
      */
     public function update(CommunityStoreRequest $request, Community $community)
     {
+        $this->authorize('update', $community);
         $community->update($request->validated());
-        return to_route('communities.index')->with('message', 'Community updated successfully.')->with('type', 'success');
+
+        return to_route('communities.index')->with('message', 'Community updated successfully.');
     }
 
     /**
@@ -93,9 +93,9 @@ class CommunityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Community $community)
-    {      
+    {
+        $this->authorize('delete', $community);
         $community->delete();
-        
-        return back()->with('message', 'Community deleted successfully.')->with('type', 'error');;
+        return back()->with('message', 'Community deleted successfully.');
     }
 }

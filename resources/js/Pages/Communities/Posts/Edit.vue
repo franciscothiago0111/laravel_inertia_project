@@ -4,7 +4,7 @@
     <BreezeAuthenticatedLayout>
       <template #header>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Create Community
+          Create Post for {{ community.name }}
         </h2>
       </template>
   
@@ -13,16 +13,28 @@
           <div class="max-w-md mx-auto bg-white m-2 p-6">
             <form @submit.prevent="submit">
               <div>
-                <BreezeLabel for="name" value="Name" />
+                <BreezeLabel for="title" value="Title" />
                 <BreezeInput
-                  id="name"
+                  id="title"
                   type="text"
                   class="mt-1 block w-full"
-                  v-model="form.name"
+                  v-model="form.title"
                   autofocus
-                  autocomplete="name"
+                  autocomplete="title"
                 />
-                <BreezeInputError :message="errors.name" />
+                <BreezeInputError :message="errors.title" />
+              </div>
+  
+              <div class="mt-4">
+                <BreezeLabel for="url" value="Url" />
+                <BreezeInput
+                  id="url"
+                  type="url"
+                  class="mt-1 block w-full"
+                  v-model="form.url"
+                  autocomplete="url"
+                />
+                <BreezeInputError :message="errors.url" />
               </div>
   
               <div class="mt-4">
@@ -61,11 +73,18 @@
   import BreezeLabel from "@/Components/Label.vue";
   import { Head, useForm } from "@inertiajs/inertia-vue3";
   const props = defineProps({
+    post: Object,
     community: Object,
     errors: Object,
   });
-  const form = useForm(props.community);
+  const form = useForm({
+    title: props.post?.title,
+    description: props.post?.description,
+    url: props.post?.url,
+  });
   const submit = () => {
-    form.put(route("communities.update", props.community.slug));
+    form.put(
+      route("communities.posts.update", [props.community.slug, props.post.slug])
+    );
   };
   </script>
